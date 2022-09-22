@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-const { NODE_ENV, DATABASE_URL } = process.env;
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
@@ -22,7 +21,7 @@ const options = {
   credentials: true,
 };
 
-mongoose.connect(NODE_ENV === 'production' ? DATABASE_URL : 'mongodb://localhost:27017/moviesdb');
+mongoose.connect('mongodb://localhost:27017/moviesdb');
 const app = express();
 app.use('*', cors(options));
 app.use(express.json());
