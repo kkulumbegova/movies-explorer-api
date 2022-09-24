@@ -67,6 +67,8 @@ const updateUser = (req, res, next) => User.findByIdAndUpdate(
   .catch((err) => {
     if (err.name === 'ValidationError') {
       throw next(new ValidationError('Переданы некорректные данные'));
+    } else if (err.code === 11000) {
+      next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
     } else {
       next(err);
     }

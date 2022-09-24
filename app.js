@@ -7,6 +7,7 @@ const cors = require('cors');
 const { errors } = require('celebrate');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const error = require('./middlewares/error');
 
 const { PORT = 3000 } = process.env;
 const options = {
@@ -32,10 +33,6 @@ app.use(routes);
 
 app.use(errorLogger);
 app.use(errors());
-app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const message = statusCode === 500 ? 'На сервере произошла ошибка' : err.message;
-  res.status(statusCode).send({ message });
-  next();
-});
+app.use(error);
+
 app.listen(PORT, () => {});

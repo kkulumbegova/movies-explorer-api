@@ -13,7 +13,7 @@ const checkValidUrl = (url) => {
 
 const signupValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required(),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -27,8 +27,8 @@ const signinValidation = celebrate({
 
 const updateUserValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string(),
-    email: Joi.string().email(),
+    name: Joi.string().required().min(2).max(30),
+    email: Joi.string().email().required(),
   }),
 });
 
@@ -44,7 +44,7 @@ const createMovieValidation = celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     thumbnail: Joi.string().required().custom(checkValidUrl),
-    movieId: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 });
 
