@@ -33,14 +33,17 @@ const createMovie = (req, res, next) => {
     });
 };
 
-const getMovies = (req, res, next) => Movie.find({})
-  .then((movies) => {
-    if (movies.length === 0) {
-      res.send({ message: 'Нет сохраненных фильмов' });
-    }
-    res.send(movies);
-  })
-  .catch(next);
+const getMovies = (req, res, next) => {
+  const owner = req.user._id;
+  Movie.find({ owner })
+    .then((movies) => {
+      if (!movies) {
+        throw next(new NotFound('Файлы не найдены'));
+      }
+      res.send(movies);
+    })
+    .catch(next);
+};
 
 const deleteMovie = (req, res, next) => {
   const id = req.params.movieId;
