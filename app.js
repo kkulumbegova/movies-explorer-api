@@ -13,8 +13,8 @@ const { PORT = 3000 } = process.env;
 const options = {
   origin: [
     'http://localhost:3006',
-    'https://kulumbegova.movies.nomorepartiesxyz.ru',
-    'http://kulumbegova.movies.nomorepartiesxyz.ru',
+    'https://kulumbegova.movies.nomoredomains.club',
+    'http://kulumbegova.movies.nomoredomains.club',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
